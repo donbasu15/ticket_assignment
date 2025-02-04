@@ -7,7 +7,7 @@ import { Eye, Edit, Trash2, Plus, LogOut } from 'lucide-react';
 import CreateTicketModal from '../components/CreateTicketModal';
 import ViewTicketModal from '../components/ViewTicketModal';
 import EditTicketModal from '../components/EditTicketModal';
-import { format } from 'date-fns';
+import {parseISO, format } from 'date-fns';
 
 
 const Dashboard = () => {
@@ -135,9 +135,16 @@ const Dashboard = () => {
                           </select>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              
-                               {ticket.createdAt ? format(new Date(ticket.createdAt), 'MM/dd/yyyy') : 'No Date'}
-
+                          {ticket.createdAt ? 
+                            format(
+                              ticket.createdAt instanceof Date ? 
+                                ticket.createdAt : 
+                                typeof ticket.createdAt === 'string' ?
+                                  parseISO(ticket.createdAt) :
+                                  ticket.createdAt.toDate(),
+                              'MM/dd/yyyy'
+                            ) : 
+                            'No Date'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <div className="flex space-x-2">

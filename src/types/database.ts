@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type UserRole = 'customer' | 'agent';
 
 export interface Profile {
@@ -24,6 +26,6 @@ export interface Ticket {
   createdBy: string;
   assignedTo: string | null;
   attachmentUrl: string | null;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Timestamp |Date;
+  updatedAt: Timestamp | Date;
 }

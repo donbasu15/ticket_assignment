@@ -1,5 +1,5 @@
 import React from 'react';
-import { format } from 'date-fns';
+import {parseISO, format } from 'date-fns';
 import { X } from 'lucide-react';
 import type { Ticket } from '../types/database';
 
@@ -27,7 +27,16 @@ const ViewTicketModal: React.FC<ViewTicketModalProps> = ({ isOpen, onClose, tick
             <div>
               <h3 className="text-lg font-medium text-gray-900">{ticket.title}</h3>
               <p className="mt-1 text-sm text-gray-500">
-                Created on {format(new Date(ticket.createdAt), 'PPP')}
+                Created on {ticket.createdAt ? 
+                                            format(
+                                              ticket.createdAt instanceof Date ? 
+                                                ticket.createdAt : 
+                                                typeof ticket.createdAt === 'string' ?
+                                                  parseISO(ticket.createdAt) :
+                                                  ticket.createdAt.toDate(),
+                                              'MM/dd/yyyy'
+                                            ) : 
+                                            'No Date'}
               </p>
             </div>
 
