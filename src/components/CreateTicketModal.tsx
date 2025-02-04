@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { collection, addDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../lib/firebase';
+// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db } from '../lib/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { X } from 'lucide-react';
 import { formatISO } from 'date-fns';
@@ -52,14 +52,14 @@ const CreateTicketModal: React.FC<CreateTicketModalProps> = ({ isOpen, onClose }
     try {
       let attachmentUrl = null;
   
-      if (data.attachment?.[0]) {
-        const file = data.attachment[0];
-        console.log('Uploading file:', file.name); // Check file upload
-        const storageRef = ref(storage, `attachments/${Date.now()}_${file.name}`);
-        const snapshot = await uploadBytes(storageRef, file);
-        attachmentUrl = await getDownloadURL(snapshot.ref);
-        console.log('File uploaded:', attachmentUrl);
-      }
+      // if (data.attachment?.[0]) {
+      //   const file = data.attachment[0];
+      //   console.log('Uploading file:', file.name); // Check file upload
+      //   const storageRef = ref(storage, `attachments/${Date.now()}_${file.name}`);
+      //   const snapshot = await uploadBytes(storageRef, file);
+      //   attachmentUrl = await getDownloadURL(snapshot.ref);
+      //   console.log('File uploaded:', attachmentUrl);
+      // }
   
       const { attachment, ...rest } = data;
 
