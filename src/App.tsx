@@ -6,7 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
