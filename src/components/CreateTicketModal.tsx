@@ -7,6 +7,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../lib/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { X } from 'lucide-react';
+import { formatISO } from 'date-fns';
 
 const ticketSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100),
@@ -60,17 +61,17 @@ const CreateTicketModal: React.FC<CreateTicketModalProps> = ({ isOpen, onClose }
         console.log('File uploaded:', attachmentUrl);
       }
   
-      const { attachment, ...rest } = data; // ✅ Exclude attachment
+      const { attachment, ...rest } = data;
 
       const ticketRef = await addDoc(collection(db, 'tickets'), {
-         ...rest,               // Save other form data
-         attachmentUrl,         // Save only the file URL
-         createdBy: profile?.id,
-         assignedTo: null,
-         status: 'new',
-         createdAt: new Date(),
-         updatedAt: new Date(),
-       });
+        ...rest,               // Save other form data
+        attachmentUrl,         // Save only the file URL
+        createdBy: profile?.id,
+        assignedTo: null,
+        status: 'new',
+        createdAt: formatISO(new Date()),   // Store as ISO string
+        updatedAt: formatISO(new Date()),   // Store as ISO string
+      });
        
   
       console.log('Ticket created:', ticketRef.id);

@@ -7,6 +7,8 @@ import { Eye, Edit, Trash2, Plus, LogOut } from 'lucide-react';
 import CreateTicketModal from '../components/CreateTicketModal';
 import ViewTicketModal from '../components/ViewTicketModal';
 import EditTicketModal from '../components/EditTicketModal';
+import {parseISO, format } from 'date-fns';
+
 
 const Dashboard = () => {
   const { profile, signOut } = useAuth();
@@ -105,6 +107,7 @@ const Dashboard = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {tickets.map((ticket) => (
+                     
                       <tr key={ticket.id}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-medium text-gray-900">{ticket.title}</div>
@@ -132,7 +135,7 @@ const Dashboard = () => {
                           </select>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(ticket.createdAt).toLocaleDateString()}
+                               {ticket.createdAt ? format(parseISO(ticket.createdAt), 'MM/dd/yyyy') : 'No Date'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <div className="flex space-x-2">
